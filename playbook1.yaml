@@ -1,0 +1,15 @@
+---
+- hosts: nodes
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd  update_cache=yes state=latest
+    - name: Start the Apache service
+      service: name=httpd state=started
+    - name: Install Tomcat
+      yum: name=tomcat update_cache=yes state=latest
+    - name: Start the Tomcat service
+      service: name=tomcat state=started
+    - name: copy sample file from master to client
+      copy: src=/usr/sample.txt dest=/home/ec2-user/slam.txt	
+
